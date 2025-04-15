@@ -1,0 +1,19 @@
+[versions]
+
+axion-release-plugin = "1.18.18"
+kotlin-jvm = "2.1.20"
+
+ksp = "2.1.20-2.0.1"
+
+[libraries]
+
+ksp = { group = "com.google.devtools.ksp", name = "symbol-processing-api", version.ref = "ksp" }
+
+[plugins]
+
+axion-release-plugin = { id = "pl.allegro.tech.build.axion-release", version.ref = "axion-release-plugin" }
+
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin-jvm" }
+
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+
