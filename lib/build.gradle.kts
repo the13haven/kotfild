@@ -9,6 +9,7 @@ plugins {
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.ksp)
     alias(libs.plugins.axion.release.plugin)
+    alias(libs.plugins.testkit.jacoco.plugin)
 }
 
 dependencies {
@@ -27,11 +28,17 @@ kotlin {
 testing {
     suites {
         // Configure the built-in test suite
-        getting(JvmTestSuite::class) {
+        val test by getting(JvmTestSuite::class) {
             // Use Kotlin Test test framework
-            useKotlinTest("2.1.0")
+            useKotlinTest(libs.plugins.kotlin.jvm.get().version.requiredVersion)
         }
     }
+}
+
+jacoco {
+    toolVersion = libs.jacoco.get().version!!
+
+    reportsDirectory = layout.buildDirectory.dir("reposts/coverage")
 }
 
 scmVersion {
@@ -70,5 +77,20 @@ scmVersion {
             }
             commit { releaseVersion, _ -> "Release v${releaseVersion}" }
         }
+    }
+}
+
+tasks.jacocoTestReport {
+    dependsOn(tasks.test)
+
+    reports {
+        xml.required = true
+        xml.outputLocation = layout.buildDirectory.file("reports/coverage/coverage.xml")
+
+        csv.required = false
+        //csv.outputLocation = layout.buildDirectory.file("reports/coverage/coverage.csv")
+
+        html.required = true
+        html.outputLocation = layout.buildDirectory.dir("reports/coverage/html")
     }
 }
