@@ -1,4 +1,4 @@
-name: PoVerCat CI Build
+name: Kotfild CI Build
 
 on:
   workflow_dispatch:
@@ -48,7 +48,7 @@ jobs:
         if: ${{ github.ref_name == 'main' }}
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          slug: the13haven/povercat-plugin
+          slug: the13haven/kotfild
           files: build/reports/coverage/coverage.xml
           fail_ci_if_error: true
           verbose: true
@@ -58,7 +58,7 @@ jobs:
         if: ${{ github.ref_name == 'main' }}
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          slug: the13haven/povercat-plugin
+          slug: the13haven/kotfild
           flags: tests
           directory: plugin/build/test-results/test
           fail_ci_if_error: true
@@ -77,11 +77,11 @@ jobs:
         uses: fossas/fossa-action@main
         with:
           api-key: ${{ secrets.FOSSA_API_KEY }}
-          project: povercat-plugin
+          project: kotfild
 
       - name: FOSSA Test
         uses: fossas/fossa-action@main
         with:
           api-key: ${{ secrets.FOSSA_API_KEY }}
-          project: povercat-plugin
+          project: kotfild
           run-tests: true

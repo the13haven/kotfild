@@ -1,4 +1,4 @@
-name: PoVerCat Release
+name: Kotfild Release
 
 on:
   workflow_dispatch:
@@ -30,7 +30,7 @@ jobs:
         run: |
           git config --global user.name "release-bot"
           git config --global user.email "release-bot@noreply.github.com"
-          git remote set-url origin git@github.com:the13haven/povercat-plugin.git
+          git remote set-url origin git@github.com:the13haven/kotfild.git
 
       - name: Setup Java
         uses: actions/setup-java@v4
