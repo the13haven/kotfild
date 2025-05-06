@@ -1,4 +1,4 @@
-name: PoVerCat Clear cache
+name: Kotfild Clear cache
 
 on:
   workflow_dispatch:
