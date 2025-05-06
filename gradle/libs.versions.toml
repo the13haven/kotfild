@@ -1,0 +1,25 @@
+[versions]
+
+axion-release-plugin = "1.18.18"
+kotlin-jvm = "2.1.20"
+
+ksp = "2.1.20-2.0.1"
+
+jacoco = "0.8.13"
+testkit-jacoco-plugin = "1.0.3"
+
+[libraries]
+
+ksp = { group = "com.google.devtools.ksp", name = "symbol-processing-api", version.ref = "ksp" }
+
+jacoco = { group = "org.jacoco", name = "org.jacoco.core", version.ref = "jacoco" }
+
+[plugins]
+
+axion-release-plugin = { id = "pl.allegro.tech.build.axion-release", version.ref = "axion-release-plugin" }
+
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin-jvm" }
+
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+
+testkit-jacoco-plugin = { id = "io.github.gmazzo.gradle.testkit.jacoco", version.ref = "testkit-jacoco-plugin" }
