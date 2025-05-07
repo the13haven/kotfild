@@ -15,10 +15,11 @@
 
 package com.the13haven.kotfild.ksp
 
+import com.google.devtools.ksp.processing.CodeGenerator
 import com.google.devtools.ksp.processing.Dependencies
+import com.google.devtools.ksp.processing.KSPLogger
 import com.google.devtools.ksp.processing.Resolver
 import com.google.devtools.ksp.processing.SymbolProcessor
-import com.google.devtools.ksp.processing.SymbolProcessorEnvironment
 import com.google.devtools.ksp.symbol.KSAnnotated
 import com.google.devtools.ksp.symbol.KSClassDeclaration
 import java.io.OutputStream
@@ -32,7 +33,8 @@ import java.time.LocalDate
  * @author ssidorov@the13haven.com
  */
 class UniqueMemberCollectorProcessor(
-    private val environment: SymbolProcessorEnvironment
+    private val logger: KSPLogger,
+    private val codeGenerator: CodeGenerator
 ) : SymbolProcessor {
 
     private var invoked = false
@@ -49,19 +51,19 @@ class UniqueMemberCollectorProcessor(
         // Mark as invoked to avoid processing multiple times in the same build session
         invoked = true
 
-        environment.logger.info(">>> Start processing UniqueMembers...")
+        logger.info(">>> Start processing UniqueMembers...")
 
         val uniqueMemberSymbols = resolver.getSymbolsWithAnnotation(UNIQUE_MEMBER_ANNOTATION)
         val uniqueMemberAnnotatedClasses = uniqueMemberSymbols.filterIsInstance<KSClassDeclaration>()
             .toList()
 
         if (uniqueMemberAnnotatedClasses.isEmpty()) {
-            environment.logger.info(">>> No UniqueMembers found")
-            environment.logger.info(">>> Processing UniqueMembers finished")
+            logger.info(">>> No UniqueMembers found")
+            logger.info(">>> Processing UniqueMembers finished")
             return emptyList()
         }
 
-        environment.logger.info(
+        logger.info(
             ">>> Symbols marked as UniqueMembers:\n"
                     + uniqueMemberAnnotatedClasses.map { it.simpleName.asString() }
                 .joinToString("\n") { "        # $it" }
@@ -78,27 +80,26 @@ class UniqueMemberCollectorProcessor(
 
         // Generate the object file with proper dependencies
         try {
-            environment.codeGenerator
-                .createNewFile(
-                    uniqueMemberDependencies,
-                    PACKAGE,
-                    CLASS_NAME
-                )
+            codeGenerator.createNewFile(
+                uniqueMemberDependencies,
+                PACKAGE,
+                CLASS_NAME
+            )
                 .use { outputStream ->
                     writeUniqueMemberTypeObject(outputStream, uniqueMemberAnnotatedClasses)
                 }
 
-            environment.logger.info(">>> Processing UniqueMembers finished")
+            logger.info(">>> Processing UniqueMembers finished")
 
         } catch (e: Exception) {
-            environment.logger.error("Error generating code: ${e.message}")
+            logger.error("Error generating code: ${e.message}")
         }
 
         return emptyList()
     }
 
     private fun writeUniqueMemberTypeObject(outputStream: OutputStream, classes: List<KSClassDeclaration>) {
-        environment.logger.info(">>> Writing $CLASS_NAME file...")
+        logger.info(">>> Writing $CLASS_NAME file...")
 
         outputStream.writer()
             .apply {
