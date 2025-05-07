@@ -5,6 +5,7 @@ kotlin-jvm = "2.1.20"
 
 ksp = "2.1.20-2.0.1"
 
+mockk = "1.14.2"
 jacoco = "0.8.13"
 testkit-jacoco-plugin = "1.0.3"
 
@@ -12,6 +13,7 @@ testkit-jacoco-plugin = "1.0.3"
 
 ksp = { group = "com.google.devtools.ksp", name = "symbol-processing-api", version.ref = "ksp" }
 
+mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
 jacoco = { group = "org.jacoco", name = "org.jacoco.core", version.ref = "jacoco" }
 
 [plugins]

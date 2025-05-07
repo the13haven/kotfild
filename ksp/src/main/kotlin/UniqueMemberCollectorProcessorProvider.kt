@@ -27,6 +27,9 @@ import com.google.devtools.ksp.processing.SymbolProcessorProvider
  */
 class UniqueMemberCollectorProcessorProvider : SymbolProcessorProvider {
     override fun create(environment: SymbolProcessorEnvironment): SymbolProcessor {
-        return UniqueMemberCollectorProcessor(environment)
+        return UniqueMemberCollectorProcessor(
+            environment.logger,
+            environment.codeGenerator
+        )
     }
 }
