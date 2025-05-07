@@ -26,10 +26,10 @@ class AddedOnceMember<T> {
     private var isAdded = false
 
     val value: T
-        get() = _value ?: error("The ${value!!::class.simpleName} not added")
+        get() = _value ?: error("The value not added")
 
     fun set(value: T) {
-        check(!isAdded) { "The ${value!!::class.simpleName} can only be added once" }
+        check(!isAdded) { "The value can only be added once" }
 
         _value = value
         isAdded = true
