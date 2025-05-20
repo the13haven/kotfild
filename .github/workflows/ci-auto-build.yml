@@ -45,7 +45,7 @@ jobs:
 
       - name: Upload ksp coverage reports to Codecov
         uses: codecov/codecov-action@v5
-        if: ${{ github.ref_name == 'main' }}
+        # if: ${{ github.ref_name == 'main' }}
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           slug: the13haven/kotfild
@@ -56,7 +56,7 @@ jobs:
 
       - name: Upload lib coverage reports to Codecov
         uses: codecov/codecov-action@v5
-        if: ${{ github.ref_name == 'main' }}
+        # if: ${{ github.ref_name == 'main' }}
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           slug: the13haven/kotfild
@@ -67,7 +67,7 @@ jobs:
 
       - name: Upload ksp test reports to Codecov
         uses: codecov/test-results-action@v1
-        if: ${{ github.ref_name == 'main' }}
+        # if: ${{ github.ref_name == 'main' }}
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           slug: the13haven/kotfild
@@ -77,7 +77,7 @@ jobs:
 
       - name: Upload lib test reports to Codecov
         uses: codecov/test-results-action@v1
-        if: ${{ github.ref_name == 'main' }}
+        # if: ${{ github.ref_name == 'main' }}
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           slug: the13haven/kotfild
