@@ -13,6 +13,8 @@ flags:
   ksp:
     paths:
       - ksp/build/test-results/test
+      - ksp/build/reports/coverage
   lib:
     paths:
       - lib/build/test-results/test
+      - lib/build/reports/coverage
