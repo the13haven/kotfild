@@ -1,0 +1,18 @@
+coverage:
+  status:
+    project:
+      default:
+        target: 80%
+        threshold: 2%
+
+comment:
+  layout: "reach, diff, flags, files, tests"
+  behavior: default
+
+flags:
+  ksp:
+    paths:
+      - ksp/build/test-results/test
+  lib:
+    paths:
+      - lib/build/test-results/test

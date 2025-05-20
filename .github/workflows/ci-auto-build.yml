@@ -49,18 +49,28 @@ jobs:
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           slug: the13haven/kotfild
-          files: build/reports/coverage/coverage.xml
+          files: ./ksp/build/reports/coverage/coverage.xml,./lib/build/reports/coverage/coverage.xml
           fail_ci_if_error: true
           verbose: true
 
-      - name: Upload test reports to Codecov
+      - name: Upload lib test reports to Codecov
         uses: codecov/test-results-action@v1
         if: ${{ github.ref_name == 'main' }}
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           slug: the13haven/kotfild
-          flags: tests
-          directory: plugin/build/test-results/test
+          flags: lib
+          directory: lib/build/test-results/test
+          fail_ci_if_error: true
+
+      - name: Upload ksp test reports to Codecov
+        uses: codecov/test-results-action@v1
+        if: ${{ github.ref_name == 'main' }}
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          slug: the13haven/kotfild
+          flags: ksp
+          directory: ksp/build/test-results/test
           fail_ci_if_error: true
 
   fossa-scan:
