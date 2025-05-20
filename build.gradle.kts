@@ -69,43 +69,27 @@ subprojects {
             html.outputLocation = layout.buildDirectory.dir("reports/coverage/html")
         }
 
-        val classDir = layout.buildDirectory.dir("classes/kotlin/main")
-        val execData = layout.buildDirectory.file("jacoco/test.exec")
-        val sourceDirs = files("src/main/kotlin")//"build/classes/kotlin/main")
-
+        // Important for Kotlin projects - ensure we're capturing the right classes
         classDirectories.setFrom(
-            classDir.map {
+            files(classDirectories.files.map {
                 fileTree(it) {
-                    exclude("**/generated/**")
+                    exclude(
+                        "**/R.class",
+                        "**/R$*.class",
+                        "**/BuildConfig.*",
+                        "**/Manifest*.*",
+                        "**/*Test*.*",
+                        "**/*$*", // Kotlin synthetic classes
+                        "**/*Module_*Factory*", // Dagger generated code
+                        "**/*_MembersInjector*", // Dagger generated code
+                        "**/*_Factory*", // Dagger generated code
+                        "**/*Component*", // Dagger generated code
+                        "**/*Module*" // Dagger generated code
+                    )
                 }
-            }
+            })
         )
-        sourceDirectories.setFrom(sourceDirs)
-        executionData.setFrom(execData)
     }
-
-//    println("  > Configure Jacoco Report Copying...")
-//    plugins.withId("jacoco") {
-//        val reportFile = layout.buildDirectory.file("reports/coverage/coverage.xml")
-//        val outputDir = rootProject.layout.buildDirectory.dir("coverage-reports")
-//
-//        val copyCoverageReport = tasks.register<Copy>("copyCoverageReport") {
-//            from(reportFile)
-//            into(outputDir)
-//            rename { "$childProject.xml" }
-//        }
-//
-//        tasks.named("jacocoTestReport") {
-//            finalizedBy(copyCoverageReport)
-//        }
-//    }
 
     println("The project $childProject is configured")
 }
-
-//tasks.register("prepareCoverageReports") {
-//    subprojects.forEach {
-//        dependsOn("${it.path}:jacocoTestReport")
-//        dependsOn("${it.path}:copyCoverageReport")
-//    }
-//}
