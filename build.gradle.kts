@@ -66,6 +66,20 @@ subprojects {
             html.required = true
             html.outputLocation = layout.buildDirectory.dir("reports/coverage/html")
         }
+
+        val classDir = layout.buildDirectory.dir("classes/kotlin/main")
+        val execData = layout.buildDirectory.file("jacoco/test.exec")
+        val sourceDirs = files("src/main/kotlin")
+
+        classDirectories.setFrom(
+            classDir.map {
+                fileTree(it) {
+                    exclude("**/generated/**")
+                }
+            }
+        )
+        sourceDirectories.setFrom(sourceDirs)
+        executionData.setFrom(execData)
     }
 
     println("The project ${project.name} is configured")

@@ -51,6 +51,7 @@ jobs:
           slug: the13haven/kotfild
           name: ksp-report
           flags: ksp
+          root_dir: ./ksp
           files: ./ksp/build/reports/coverage/coverage.xml
           fail_ci_if_error: true
           verbose: true
@@ -63,6 +64,7 @@ jobs:
           slug: the13haven/kotfild
           name: lib-report
           flags: lib
+          root_dir: ./lib
           files: ./lib/build/reports/coverage/coverage.xml
           fail_ci_if_error: true
           verbose: true
