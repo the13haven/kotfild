@@ -71,7 +71,7 @@ subprojects {
 
         val classDir = layout.buildDirectory.dir("classes/kotlin/main")
         val execData = layout.buildDirectory.file("jacoco/test.exec")
-        val sourceDirs = files("build/classes/kotlin/main")
+        val sourceDirs = files("src/main/kotlin")//"build/classes/kotlin/main")
 
         classDirectories.setFrom(
             classDir.map {
@@ -84,28 +84,28 @@ subprojects {
         executionData.setFrom(execData)
     }
 
-    println("  > Configure Jacoco Report Copying...")
-    plugins.withId("jacoco") {
-        val reportFile = layout.buildDirectory.file("reports/coverage/coverage.xml")
-        val outputDir = rootProject.layout.buildDirectory.dir("coverage-reports")
-
-        val copyCoverageReport = tasks.register<Copy>("copyCoverageReport") {
-            from(reportFile)
-            into(outputDir)
-            rename { "$childProject.xml" }
-        }
-
-        tasks.named("jacocoTestReport") {
-            finalizedBy(copyCoverageReport)
-        }
-    }
+//    println("  > Configure Jacoco Report Copying...")
+//    plugins.withId("jacoco") {
+//        val reportFile = layout.buildDirectory.file("reports/coverage/coverage.xml")
+//        val outputDir = rootProject.layout.buildDirectory.dir("coverage-reports")
+//
+//        val copyCoverageReport = tasks.register<Copy>("copyCoverageReport") {
+//            from(reportFile)
+//            into(outputDir)
+//            rename { "$childProject.xml" }
+//        }
+//
+//        tasks.named("jacocoTestReport") {
+//            finalizedBy(copyCoverageReport)
+//        }
+//    }
 
     println("The project $childProject is configured")
 }
 
-tasks.register("prepareCoverageReports") {
-    subprojects.forEach {
-        dependsOn("${it.path}:jacocoTestReport")
-        dependsOn("${it.path}:copyCoverageReport")
-    }
-}
+//tasks.register("prepareCoverageReports") {
+//    subprojects.forEach {
+//        dependsOn("${it.path}:jacocoTestReport")
+//        dependsOn("${it.path}:copyCoverageReport")
+//    }
+//}

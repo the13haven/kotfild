@@ -1,6 +1,14 @@
 codecov:
   require_ci_to_pass: yes
 
+# Help Codecov find source files when using Kotlin's short package syntax
+fixes:
+  - "::/"                         # Root level fix
+  - "com.the13haven.kotfild.ksp/::"       # If this is your package prefix
+  - "com.the13haven.kotfild/::"      # Another common package prefix
+  - "::ksp/src/main/kotlin/"      # Map source directories
+  - "::lib/src/main/kotlin/"      # For the lib module
+
 coverage:
   precision: 2
   round: down
@@ -27,6 +35,8 @@ flags:
     carryforward: true
 
 parsers:
+  jacoco:
+    partials_as_hits: yes
   gcov:
     branch_detection:
       conditional: true
