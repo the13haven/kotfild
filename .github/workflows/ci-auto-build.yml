@@ -49,6 +49,7 @@ jobs:
           file: ./build/coverage-reports/ksp.xml
           flags: ksp
           fail_ci_if_error: true
+          verbose: true
 
       - name: Upload Lib module coverage report to Codecov
         uses: codecov/codecov-action@v5
@@ -56,6 +57,7 @@ jobs:
           file: ./build/coverage-reports/lib.xml
           flags: lib
           fail_ci_if_error: true
+          verbose: true
 
 #      - name: Upload coverage reports to Codecov
 #        uses: codecov/codecov-action@v5
