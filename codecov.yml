@@ -1,4 +1,9 @@
+codecov:
+  require_ci_to_pass: yes
+
 coverage:
+  precision: 2
+  round: down
   status:
     project:
       default:
@@ -7,13 +12,19 @@ coverage:
       ksp:
         flags:
           - ksp
-        paths:
-          - ksp/
       lib:
         flags:
           - lib
-        paths:
-          - lib/
+
+flags:
+  ksp:
+    paths:
+      - ksp/
+    carryforward: true
+  lib:
+    paths:
+      - lib/
+    carryforward: true
 
 parsers:
   gcov:
@@ -24,15 +35,8 @@ parsers:
       macro: true
 
 comment:
-  layout: "reach, diff, flags, files"
+  layout: "reach,diff,flags,files,footer"
   behavior: default
-
-#flags:
-#  ksp:
-#    paths:
-#      - ksp/build/test-results/test
-#      - ksp/build/reports/coverage
-#  lib:
-#    paths:
-#      - lib/build/test-results/test
-#      - lib/build/reports/coverage
+  require_changes: false
+  require_base: no
+  require_head: no
