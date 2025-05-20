@@ -46,7 +46,8 @@ jobs:
       - name: Upload KSP module coverage report to Codecov
         uses: codecov/codecov-action@v5
         with:
-          file: ./build/coverage-reports/ksp.xml
+          token: ${{ secrets.CODECOV_TOKEN }}
+          file: ./ksp/build/reports/coverage/coverage.xml
           flags: ksp
           fail_ci_if_error: true
           verbose: true
@@ -54,7 +55,8 @@ jobs:
       - name: Upload Lib module coverage report to Codecov
         uses: codecov/codecov-action@v5
         with:
-          file: ./build/coverage-reports/lib.xml
+          token: ${{ secrets.CODECOV_TOKEN }}
+          file: ./lib/build/reports/coverage/coverage.xml
           flags: lib
           fail_ci_if_error: true
           verbose: true
