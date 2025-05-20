@@ -69,25 +69,25 @@ jobs:
           fail_ci_if_error: true
           verbose: true
 
-      - name: Upload ksp test reports to Codecov
-        uses: codecov/test-results-action@v1
-        # if: ${{ github.ref_name == 'main' }}
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          slug: the13haven/kotfild
-          flags: ksp
-          directory: ksp/build/test-results/test
-          fail_ci_if_error: true
-
-      - name: Upload lib test reports to Codecov
-        uses: codecov/test-results-action@v1
-        # if: ${{ github.ref_name == 'main' }}
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          slug: the13haven/kotfild
-          flags: lib
-          directory: lib/build/test-results/test
-          fail_ci_if_error: true
+#      - name: Upload ksp test reports to Codecov
+#        uses: codecov/test-results-action@v1
+#        # if: ${{ github.ref_name == 'main' }}
+#        with:
+#          token: ${{ secrets.CODECOV_TOKEN }}
+#          slug: the13haven/kotfild
+#          flags: ksp
+#          directory: ksp/build/test-results/test
+#          fail_ci_if_error: true
+#
+#      - name: Upload lib test reports to Codecov
+#        uses: codecov/test-results-action@v1
+#        # if: ${{ github.ref_name == 'main' }}
+#        with:
+#          token: ${{ secrets.CODECOV_TOKEN }}
+#          slug: the13haven/kotfild
+#          flags: lib
+#          directory: lib/build/test-results/test
+#          fail_ci_if_error: true
 
   fossa-scan:
 

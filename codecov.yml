@@ -9,12 +9,12 @@ comment:
   layout: "reach, diff, flags, files"
   behavior: default
 
-flags:
-  ksp:
-    paths:
-      - ksp/build/test-results/test
-      - ksp/build/reports/coverage
-  lib:
-    paths:
-      - lib/build/test-results/test
-      - lib/build/reports/coverage
+#flags:
+#  ksp:
+#    paths:
+#      - ksp/build/test-results/test
+#      - ksp/build/reports/coverage
+#  lib:
+#    paths:
+#      - lib/build/test-results/test
+#      - lib/build/reports/coverage
