@@ -50,7 +50,7 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
           slug: the13haven/kotfild
           flags: ksp
-          files: ksp/build/reports/coverage/coverage.xml
+          files: ./ksp/build/reports/coverage/coverage.xml
           fail_ci_if_error: true
           verbose: true
 
@@ -61,7 +61,7 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
           slug: the13haven/kotfild
           flags: lib
-          files: lib/build/reports/coverage/coverage.xml
+          files: ./lib/build/reports/coverage/coverage.xml
           fail_ci_if_error: true
           verbose: true
 
