@@ -4,6 +4,24 @@ coverage:
       default:
         target: 80%
         threshold: 2%
+      ksp:
+        flags:
+          - ksp
+        paths:
+          - ksp/
+      lib:
+        flags:
+          - lib
+        paths:
+          - lib/
+
+parsers:
+  gcov:
+    branch_detection:
+      conditional: true
+      loop: true
+      method: true
+      macro: true
 
 comment:
   layout: "reach, diff, flags, files"
