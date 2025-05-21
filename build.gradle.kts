@@ -84,7 +84,13 @@ subprojects {
                         "**/*_MembersInjector*", // Dagger generated code
                         "**/*_Factory*", // Dagger generated code
                         "**/*Component*", // Dagger generated code
-                        "**/*Module*" // Dagger generated code
+                        "**/*Module*", // Dagger generated code
+                        "**/*\$*",
+                        "**/*Kt.class",
+                        "**/*Companion*.*",
+                        "**/*DefaultImpls.class",
+                        "**/*\$serializer.class",
+                        "**/generated/**"
                     )
                 }
             })
