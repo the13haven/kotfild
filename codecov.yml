@@ -6,9 +6,9 @@ ignore:
   - "**/*Test*"
 
 # Help Codecov find source files when using Kotlin's short package syntax
-fixes:
-  - "ksp/src/main/kotlin/::com/the13haven/kotfild/ksp/"   # ksp fix
-  - "lib/src/main/kotlin/::com/the13haven/kotfild/"       # lib fix
+#fixes:
+#  - "ksp/src/main/kotlin/::com/the13haven/kotfild/ksp/"   # ksp fix
+#  - "lib/src/main/kotlin/::com/the13haven/kotfild/"       # lib fix
 
 coverage:
   precision: 2
