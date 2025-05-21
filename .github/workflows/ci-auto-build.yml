@@ -45,50 +45,32 @@ jobs:
 
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v5
+        # if: ${{ github.ref_name == 'main' }}
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          flags: ksp
+          slug: the13haven/kotfild
           fail_ci_if_error: true
           verbose: true
 
-#      - name: Upload Lib module coverage report to Codecov
-#        uses: codecov/codecov-action@v5
-#        with:
-#          token: ${{ secrets.CODECOV_TOKEN }}
-#          file: ./lib/build/reports/coverage/coverage.xml
-#          flags: lib
-#          fail_ci_if_error: true
-#          verbose: true
+      - name: Upload ksp test reports to Codecov
+        uses: codecov/test-results-action@v1
+        # if: ${{ github.ref_name == 'main' }}
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          slug: the13haven/kotfild
+          flags: ksp
+          directory: ksp/build/test-results/test
+          fail_ci_if_error: true
 
-#      - name: Upload coverage reports to Codecov
-#        uses: codecov/codecov-action@v5
-#        # if: ${{ github.ref_name == 'main' }}
-#        with:
-#          token: ${{ secrets.CODECOV_TOKEN }}
-#          slug: the13haven/kotfild
-#          directory: ./build/coverage-reports
-#          fail_ci_if_error: true
-#          verbose: true
-
-#      - name: Upload ksp test reports to Codecov
-#        uses: codecov/test-results-action@v1
-#        # if: ${{ github.ref_name == 'main' }}
-#        with:
-#          token: ${{ secrets.CODECOV_TOKEN }}
-#          slug: the13haven/kotfild
-#          flags: ksp
-#          directory: ksp/build/test-results/test
-#          fail_ci_if_error: true
-#
-#      - name: Upload lib test reports to Codecov
-#        uses: codecov/test-results-action@v1
-#        # if: ${{ github.ref_name == 'main' }}
-#        with:
-#          token: ${{ secrets.CODECOV_TOKEN }}
-#          slug: the13haven/kotfild
-#          flags: lib
-#          directory: lib/build/test-results/test
-#          fail_ci_if_error: true
+      - name: Upload lib test reports to Codecov
+        uses: codecov/test-results-action@v1
+        # if: ${{ github.ref_name == 'main' }}
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          slug: the13haven/kotfild
+          flags: lib
+          directory: lib/build/test-results/test
+          fail_ci_if_error: true
 
   fossa-scan:
 
