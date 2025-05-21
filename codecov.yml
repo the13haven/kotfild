@@ -1,18 +1,48 @@
+codecov:
+  require_ci_to_pass: yes
+
+ignore:
+  - "**/generated/**"
+  - "**/*Test*"
+
 coverage:
+  precision: 2
+  round: down
   status:
     project:
       default:
         target: 80%
         threshold: 2%
-
-comment:
-  layout: "reach, diff, flags, files, tests"
-  behavior: default
+      ksp:
+        flags:
+          - ksp
+      lib:
+        flags:
+          - lib
 
 flags:
   ksp:
     paths:
-      - ksp/build/test-results/test
+      - ksp/src/main/kotlin/
+    carryforward: true
   lib:
     paths:
-      - lib/build/test-results/test
+      - lib/src/main/kotlin
+    carryforward: true
+
+parsers:
+  jacoco:
+    partials_as_hits: yes
+  gcov:
+    branch_detection:
+      conditional: true
+      loop: true
+      method: no
+      macro: no
+
+comment:
+  layout: "reach,diff,flags,files,footer"
+  behavior: default
+  require_changes: false
+  require_base: no
+  require_head: no

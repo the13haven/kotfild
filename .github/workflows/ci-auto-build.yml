@@ -43,25 +43,12 @@ jobs:
       - name: Run build with Gradle Wrapper
         run: ./gradlew build --no-daemon
 
-      - name: Upload ksp coverage reports to Codecov
+      - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v5
         if: ${{ github.ref_name == 'main' }}
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           slug: the13haven/kotfild
-          flags: ksp
-          files: ./ksp/build/reports/coverage/coverage.xml
-          fail_ci_if_error: true
-          verbose: true
-
-      - name: Upload lib coverage reports to Codecov
-        uses: codecov/codecov-action@v5
-        if: ${{ github.ref_name == 'main' }}
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          slug: the13haven/kotfild
-          flags: lib
-          files: ./lib/build/reports/coverage/coverage.xml
           fail_ci_if_error: true
           verbose: true
 

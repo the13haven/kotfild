@@ -7,7 +7,9 @@ plugins {
 }
 
 subprojects {
-    println("Setup child project: ${project.name}")
+    val childProject = project.name
+
+    println("Setup child project: $childProject")
 
     println("  > Applying common plugins...")
     apply {
@@ -66,7 +68,34 @@ subprojects {
             html.required = true
             html.outputLocation = layout.buildDirectory.dir("reports/coverage/html")
         }
+
+        // Important for Kotlin projects - ensure we're capturing the right classes
+        classDirectories.setFrom(
+            files(classDirectories.files.map {
+                fileTree(it) {
+                    exclude(
+                        "**/R.class",
+                        "**/R$*.class",
+                        "**/BuildConfig.*",
+                        "**/Manifest*.*",
+                        "**/*Test*.*",
+                        "**/*$*", // Kotlin synthetic classes
+                        "**/*Module_*Factory*", // Dagger generated code
+                        "**/*_MembersInjector*", // Dagger generated code
+                        "**/*_Factory*", // Dagger generated code
+                        "**/*Component*", // Dagger generated code
+                        "**/*Module*", // Dagger generated code
+                        "**/*\$*",
+                        "**/*Kt.class",
+                        "**/*Companion*.*",
+                        "**/*DefaultImpls.class",
+                        "**/*\$serializer.class",
+                        "**/generated/**"
+                    )
+                }
+            })
+        )
     }
 
-    println("The project ${project.name} is configured")
+    println("The project $childProject is configured")
 }
