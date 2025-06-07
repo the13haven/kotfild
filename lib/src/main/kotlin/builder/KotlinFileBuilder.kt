@@ -39,7 +39,10 @@ class KotlinFileBuilder(
         { KotlinFile(fileName, members.getMembers()) }
     ),
     CommentsAwareBuilder by CommentsAwareBuilderDelegate(
-        members::add,
+        members::add
+    ),
+    FunctionAwareBuilder by FunctionBuilderDelegate(
+        members::add
     ) {
 
     /**

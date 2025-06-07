@@ -17,15 +17,6 @@ package com.the13haven.kotfild.builder.internal
 
 
 /**
- * Base interface for all builders.
- *
- * @author ssidorov@the13haven.com
- */
-interface Builder<out T> {
-    fun build(): T
-}
-
-/**
  * Base class for collection builders.
  *
  * @author ssidorov@the13haven.com

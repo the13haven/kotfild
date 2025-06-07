@@ -13,10 +13,9 @@
  * specific language governing permissions and limitations under the License.
  */
 
-package com.the13haven.kotfild.model
+package com.the13haven.kotfild.model.modifiers
 
 import java.util.Locale
-
 
 /**
  * Modifier.
@@ -94,23 +93,18 @@ sealed class Modifier(open val name: String) : Comparable<Modifier> {
         INNER,
 
         /* enum / annotation / fun // as a modifier in `fun interface` */
-        ENUM, ANNOTATION, FUN,
+//        ENUM, ANNOTATION, FUN,
 
         /* companion */
         COMPANION,
 
         /* inline/ noinline / crossinline / value */
-        INLINE, NOINLINE, CROSSINLINE, VALUE,
+        INLINE, NOINLINE, CROSSINLINE, // VALUE,
 
         /* infix */
         INFIX,
 
         /* operator */
         OPERATOR,
-
-        /* */
-        DATA
     }
 }
-
-

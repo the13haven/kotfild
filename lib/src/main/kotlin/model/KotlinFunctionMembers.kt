@@ -20,6 +20,8 @@ import com.the13haven.kotfild.model.FunctionParameters.Companion.EMPTY_PARAMETER
 import com.the13haven.kotfild.model.ReceiverType.Companion.EMPTY_RECEIVER_TYPE
 import com.the13haven.kotfild.model.TypeConstraints.Companion.EMPTY_TYPE_CONSTRAINTS
 import com.the13haven.kotfild.model.TypeParameters.Companion.EMPTY_TYPE_PARAMETERS
+import com.the13haven.kotfild.model.modifiers.FunctionModifier
+import com.the13haven.kotfild.model.modifiers.FunctionParameterModifier
 
 /**
  * Kotlin function model.
@@ -82,70 +84,3 @@ data class FunctionBodyBlock(val members: List<FunctionMember>) : FunctionBody
 data class FunctionBodyExpression(val expression: String) : FunctionBody
 
 object FunctionBodyEmpty : FunctionBody
-
-sealed class FunctionModifier(override var name: String) : Modifier(name) {
-    /** Marks a declaration as visible anywhere. */
-    object PUBLIC : FunctionModifier("public")
-
-    /** Marks a declaration as visible in the current class and its subclasses. */
-    object PROTECTED : FunctionModifier("protected")
-
-    /** Marks a declaration as visible in the current class or file. */
-    object PRIVATE : FunctionModifier("private")
-
-    /** Marks a declaration as visible in the current module. */
-    object INTERNAL : FunctionModifier("internal")
-
-    /** Marks a declaration as platform-specific, expecting an implementation in platform modules. */
-    object EXPECT : FunctionModifier("expect")
-
-    /** Denotes a platform-specific implementation in multiplatform projects. */
-    object ACTUAL : FunctionModifier("actual")
-
-    /** Forbids overriding a member. */
-    object FINAL : FunctionModifier("final")
-
-    /** Allows subclassing a class or overriding a member. */
-    object OPEN : FunctionModifier("open")
-
-    /** Marks a class or member as abstract. */
-    object ABSTRACT : FunctionModifier("abstract")
-
-    /** Marks a member as an override of a superclass member. */
-    object OVERRIDE : FunctionModifier("override")
-
-    /** Marks a declaration as implemented outside of Kotlin (accessible through JNI or in JavaScript). */
-    object EXTERNAL : FunctionModifier("external")
-
-    /** Marks a function or lambda as suspending (usable as a coroutine). */
-    object SUSPEND : FunctionModifier("suspend")
-
-    /** Tells the compiler to inline a function and the lambdas passed to it at the call site. */
-    object INLINE : FunctionModifier("inline")
-
-    /** Turns off inlining of a lambda passed to an inline function. */
-    object NOINLINE : FunctionModifier("noinline")
-
-    /** Forbids non-local returns in a lambda passed to an inline function. */
-    object CROSSINLINE : FunctionModifier("crossinline")
-
-    /** Marks a function as overloading an operator or implementing a convention. */
-    object OPERATOR : FunctionModifier("operator")
-
-    /** Allows calling a function using infix notation. */
-    object INFIX : FunctionModifier("infix")
-
-    /** Marks a function as tail-recursive (allowing the compiler to replace recursion with iteration). */
-    object TAILREC : FunctionModifier("tailrec")
-}
-
-sealed class FunctionParameterModifier(override var name: String) : Modifier(name) {
-    /** Allows passing a variable number of arguments for a parameter. */
-    object VARARG : FunctionParameterModifier("vararg")
-
-    /** Turns off inlining of a lambda passed to an inline function. */
-    object NOINLINE : FunctionParameterModifier("noinline")
-
-    /** Forbids non-local returns in a lambda passed to an inline function. */
-    object CROSSINLINE : Modifier("crossinline")
-}

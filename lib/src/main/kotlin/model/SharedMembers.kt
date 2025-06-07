@@ -15,6 +15,8 @@
 
 package com.the13haven.kotfild.model
 
+import com.the13haven.kotfild.model.modifiers.TypeParameterModifier
+
 data class Annotation(val annotation: String)
 
 data class TypeParameters(val typeParameters: List<TypeParameter>) {
@@ -31,22 +33,9 @@ data class TypeParameter(
     val type: Type
 )
 
-sealed class TypeParameterModifier(override var name: String) : Modifier(name) {
-    object REIFIED : TypeParameterModifier("reified")
-
-    object IN : TypeParameterModifier("in")
-
-    object OUT : TypeParameterModifier("out")
-}
-
 data class Expression(val expression: String) {
     companion object {
         @JvmStatic
         val EMPTY_EXPRESSION = Expression("")
     }
-}
-
-sealed class ReceiverTypeModifier(override var name: String) : Modifier(name) {
-    /** Marks a function or lambda as suspending (usable as a coroutine). */
-    object SUSPEND : ReceiverTypeModifier("suspend")
 }

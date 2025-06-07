@@ -15,10 +15,64 @@
 
 package com.the13haven.kotfild.model
 
+import com.the13haven.kotfild.model.TypeParameters.Companion.EMPTY_TYPE_PARAMETERS
+import com.the13haven.kotfild.model.modifiers.ClassModifier
+import com.the13haven.kotfild.model.modifiers.InterfaceModifier
+
 
 /**
  * Kotlin class model.
  *
  * @author ssidorov@the13haven.com
  */
-data class KotlinClass(val name: String, val members: List<ClassMember>) : Model, FileMember, ClassMember
+data class KotlinClass(
+    val name: String,
+    ) : Model, FileMember, ClassMember
+
+data class KotlinDataClass(
+    val declaration: ClassDeclaration
+) : Model, FileMember, ClassMember
+
+data class KotlinInlineValueClass(
+    val declaration: ClassDeclaration
+)
+
+data class KotlinAnnotationClass(
+    val declaration: ClassDeclaration
+) : Model, FileMember, ClassMember
+
+data class KotlinInterface(
+    val declaration: InterfaceDeclaration
+) : Model, FileMember, ClassMember
+
+data class KotlinFunInterface(
+    val declaration: InterfaceDeclaration
+) : Model, FileMember, ClassMember
+
+data class KotlinObject(
+    val declaration: ObjectDeclaration
+) : Model, FileMember, ClassMember
+
+data class ClassDeclaration(
+    val annotations: List<Annotation> = emptyList(),
+    val modifiers: List<ClassModifier> = emptyList(),
+    val name: String,
+    val typeParameters: TypeParameters = EMPTY_TYPE_PARAMETERS,
+
+    )
+
+data class ClassPrimaryConstructor(
+    val n: String // temp
+)
+
+data class ObjectDeclaration(
+    val annotations: List<Annotation> = emptyList(),
+    val modifiers: List<ClassModifier> = emptyList(),
+    val name: String
+)
+
+data class InterfaceDeclaration(
+    val annotations: List<Annotation> = emptyList(),
+    val modifiers: List<InterfaceModifier> = emptyList(),
+    val name: String
+)

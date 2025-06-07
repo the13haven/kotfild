@@ -27,11 +27,11 @@ import com.the13haven.kotfild.model.EmptyType
 import com.the13haven.kotfild.model.Expression
 import com.the13haven.kotfild.model.Expression.Companion.EMPTY_EXPRESSION
 import com.the13haven.kotfild.model.FunctionBody
+import com.the13haven.kotfild.model.FunctionBodyBlock
+import com.the13haven.kotfild.model.FunctionBodyExpression
 import com.the13haven.kotfild.model.FunctionDeclaration
 import com.the13haven.kotfild.model.FunctionMember
-import com.the13haven.kotfild.model.FunctionModifier
 import com.the13haven.kotfild.model.FunctionParameter
-import com.the13haven.kotfild.model.FunctionParameterModifier
 import com.the13haven.kotfild.model.FunctionParameters
 import com.the13haven.kotfild.model.KotlinFunction
 import com.the13haven.kotfild.model.ReceiverAcceptableType
@@ -41,9 +41,11 @@ import com.the13haven.kotfild.model.Type
 import com.the13haven.kotfild.model.TypeConstraint
 import com.the13haven.kotfild.model.TypeConstraints
 import com.the13haven.kotfild.model.TypeParameter
-import com.the13haven.kotfild.model.TypeParameterModifier
 import com.the13haven.kotfild.model.TypeParameters
 import com.the13haven.kotfild.model.TypeReference
+import com.the13haven.kotfild.model.modifiers.FunctionModifier
+import com.the13haven.kotfild.model.modifiers.FunctionParameterModifier
+import com.the13haven.kotfild.model.modifiers.TypeParameterModifier
 
 abstract class BaseFunctionBuilder : ModelBuilder<KotlinFunction> {
     protected val declaration = AddedOnceMember<FunctionDeclaration>()
@@ -53,19 +55,21 @@ abstract class BaseFunctionBuilder : ModelBuilder<KotlinFunction> {
         declaration.set(initBuilder(FunctionDeclarationBuilder(name), init))
     }
 
-    fun bodyBlock(init: FunctionBodyBlockBuilder.() -> Unit) {
-        body.set(initBuilder(FunctionBodyBlockBuilder(), init))
-    }
-
-    fun bodyExpression(init: FunctionBodyExpressionBuilder.() -> Unit) {
-        body.set(initBuilder(FunctionBodyExpressionBuilder(), init))
-    }
-
     override fun build(): KotlinFunction =
         KotlinFunction(
             declaration.value,
             body.value
         )
+}
+
+class FunctionWithBodyBlockBuilder : BaseFunctionBuilder() {
+    fun bodyBlock(init: FunctionBodyBlockBuilder.() -> Unit) =
+        body.set(initBuilder(FunctionBodyBlockBuilder(), init))
+}
+
+class FunctionWithBodyExpressionBuilder : BaseFunctionBuilder() {
+    fun bodyExpression(expression: () -> String) =
+        body.set(FunctionBodyExpressionBuilder(expression.invoke()).build())
 }
 
 class FunctionDeclarationBuilder(private val name: String) : Builder<FunctionDeclaration> {
@@ -245,16 +249,36 @@ class FunctionDeclarationBuilder(private val name: String) : Builder<FunctionDec
 sealed interface FunctionBodyBuilder : Builder<FunctionBody>
 
 class FunctionBodyBlockBuilder(private val members: MemberCollector<FunctionMember> = MemberCollector()) :
-    FunctionBodyBuilder {
+    FunctionBodyBuilder,
+    CommentsAwareBuilder by CommentsAwareBuilderDelegate(
+        members::add,
+    ) {
 
-
-    override fun build(): FunctionBody {
-        TODO("Not yet implemented")
-    }
+    override fun build(): FunctionBody = FunctionBodyBlock(members.getMembers())
 }
 
-class FunctionBodyExpressionBuilder : FunctionBodyBuilder {
-    override fun build(): FunctionBody {
-        TODO("Not yet implemented")
+class FunctionBodyExpressionBuilder(private val expression: String) : FunctionBodyBuilder {
+    override fun build(): FunctionBody = FunctionBodyExpression(expression)
+}
+
+interface FunctionAwareBuilder {
+    fun functionBlock(function: FunctionWithBodyBlockBuilder.() -> Unit)
+
+    fun functionExpression(function: FunctionWithBodyExpressionBuilder.() -> Unit)
+}
+
+class FunctionBuilderDelegate(private val functionMemberAppender: (member: KotlinFunction) -> Unit) :
+    FunctionAwareBuilder {
+
+    override fun functionBlock(function: FunctionWithBodyBlockBuilder.() -> Unit) {
+        functionMemberAppender.invoke(
+            initBuilder(FunctionWithBodyBlockBuilder(), function)
+        )
+    }
+
+    override fun functionExpression(function: FunctionWithBodyExpressionBuilder.() -> Unit) {
+        functionMemberAppender.invoke(
+            initBuilder(FunctionWithBodyExpressionBuilder(), function)
+        )
     }
 }
