@@ -5,7 +5,7 @@ kotlin-jvm = "2.1.21"
 
 ksp = "2.1.21-2.0.2"
 
-mockk = "1.14.2"
+mockk = "1.14.5"
 jacoco = "0.8.13"
 testkit-jacoco-plugin = "1.0.3"
 
