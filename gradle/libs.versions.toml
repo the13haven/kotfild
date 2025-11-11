@@ -3,7 +3,7 @@
 axion-release-plugin = "1.21.0"
 kotlin-jvm = "2.2.21"
 
-ksp = "2.3.0"
+ksp = "2.3.2"
 
 mockk = "1.14.6"
 jacoco = "0.8.14"
