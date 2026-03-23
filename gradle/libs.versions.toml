@@ -1,11 +1,11 @@
 [versions]
 
 axion-release-plugin = "1.21.1"
-kotlin-jvm = "2.2.21"
+kotlin-jvm = "2.3.0"
 
-ksp = "2.3.3"
+ksp = "2.3.4"
 
-mockk = "1.14.6"
+mockk = "1.14.9"
 jacoco = "0.8.14"
 testkit-jacoco-plugin = "1.0.5"
 
