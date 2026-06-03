@@ -1,6 +1,6 @@
 [versions]
 
-axion-release-plugin = "1.21.1"
+axion-release-plugin = "1.21.2"
 kotlin-jvm = "2.3.21"
 
 ksp = "2.3.8"
