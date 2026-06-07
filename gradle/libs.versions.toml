@@ -7,7 +7,7 @@ ksp = "2.3.9"
 
 mockk = "1.14.11"
 jacoco = "0.8.14"
-testkit-jacoco-plugin = "1.0.5"
+testkit-jacoco-plugin = "1.1.0"
 
 [libraries]
 
